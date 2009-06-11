@@ -181,6 +181,6 @@ def get_for_journalist(name, topic=''):
 def get_for_newsgroup(name, topic=''):
     url = u'http://www.publish2.com/newsgroups/%s' % slugify(name)
     if topic:
-        url += u"/%s" % topic
+        url += u"/%s" % slugify(topic)
     url += u".json"
     return get_feed(url)
