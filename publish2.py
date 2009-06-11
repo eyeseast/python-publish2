@@ -80,50 +80,6 @@ class Publish2Feed(Publish2Object):
         return self.title
 
 
-# namespace
-
-class Publish2(object):
-    
-    BASE_URL = 'http://www.publish2.com'
-    
-    def __init__(self, **kwargs):
-        self.journalist = kwargs.get('journalist', None)
-        self.newsgroup = kwargs.get('newsgroup', None)
-        self.topic = kwargs.get('topic', None)
-    
-
-    def get_for_url(self, url):
-        if url.endswith('/'):
-            url = url.rstrip('/') + '.json'
-        elif url.endswith('rss'):
-            url = url.replace('rss', 'json')
-        
-        if not url.endswith('.json'):
-            url += '.json'
-        
-        return self._jsoncall(url)
-        
-    
-    @staticmethod
-    def _jsoncall(url):        
-        try:
-            request = urllib2.urlopen(url).read()
-            feed = json.loads(request)
-            return Publish2Feed(feed)
-        except urllib2.HTTPError, e:
-            raise Publish2Error(e.read())
-        except (ValueError, KeyError), e:
-            raise Publish2Error(e)
-    
-    
-    def _make_path(self, path):
-        if path.startswith('/'):
-            url = self.BASE_URL + path
-        else:
-            url = '/'.join([BASE_URL, path])
-        return _jsoncall(url)
-
-
 # utils
 def slugify(value):
     "Simpler version of Django's slugify filter"
