@@ -20,7 +20,7 @@ except ImportError:
 class Publish2Error(Exception):
     "Exception for Publish2 errors"
 
-
+BASE_URL = 'http://www.publish2.com'
 
 # results
 
@@ -139,8 +139,26 @@ def _parse_date(date_str, format_str):
     return dt
 
 
+def _make_path(url):
+    if url.startswith('/'):
+        url = BASE_URL + url
+    
+    if url.endswith('/'):
+        url = url.rstrip('/') + '.json'
+    elif url.endswith('rss'):
+        url = url.replace('rss', 'json')
+    
+    if not url.endswith(u'.json'):
+        url += u'.json'
+    
+    return url
 
-def _get_feed(url):
+
+
+def get_feed(url):
+    if not url.endswith(u'.json'):
+        url = _make_path(url)
+    
     try:
         request = urllib2.urlopen(url).read()
         feed = json.loads(request)
@@ -157,7 +175,7 @@ def get_for_journalist(name, topic=''):
     if topic:
         url += u"/%s" % slugify(topic)
     url += u".json"
-    return _get_feed(url)
+    return get_feed(url)
 
 
 def get_for_newsgroup(name, topic=''):
@@ -165,4 +183,4 @@ def get_for_newsgroup(name, topic=''):
     if topic:
         url += u"/%s" % topic
     url += u".json"
-    return _get_feed(url)
+    return get_feed(url)
