@@ -64,7 +64,14 @@ class Publish2Link(Publish2Object):
             return pd
         except ValueError:
             return self.publication_date
-        
+    
+    def _set_created(self):
+        format = u'%B %d, %Y at %I:%M%p %Z'
+        try:
+            dt = datetime.datetime.strptime(self.created_date, format)
+            return dt
+        except ValueError:
+            return self.created_date
     
     def __str__(self):
         return self.title
