@@ -110,7 +110,7 @@ def _make_path(url):
     if url.endswith('/'):
         url = url.rstrip('/') + '.json'
     elif url.endswith('rss'):
-        url = url.replace('rss', 'json')
+        url = url.replace('.rss', '.json')
     
     if not url.endswith(u'.json'):
         url += u'.json'
