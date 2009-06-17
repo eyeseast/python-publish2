@@ -50,6 +50,7 @@ class Publish2Link(Publish2Object):
     def __init__(self, d):
         self.__dict__ = d
         self.publication_date = self._set_pub_date()
+        self.created_date = self._set_created()
         if hasattr(self, 'tags'):
             tags = self.tags[0].values()
             self.tags = [Publish2Tag(t) for t in tags]
