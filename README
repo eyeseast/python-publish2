@@ -1,0 +1,13 @@
+Basic how-to:
+
+>>> import publish2
+>>> p2 = publish2.get_for_journalist("Ryan Sholin") # fetches your 100 latest links as a feed
+>>> my_links = p2.items # the actual links
+>>> my_links[0].title # each item has a title, link, publication_name, publication_date, created_date, tags, description, some other stuff
+
+# filter your feed
+>>> p2 = publish2.get_for_journalist("Chris Amico", topic="politics") # not case sensative, will be slugified
+>>> p2 = publish2.get_for_newsgroup("NewsHour", topic="Barack Obama")
+
+# or just get any feed
+>>> p2 = publish2.get_feed("http://www.publish2.com/recent") # this is buggy. Add .rss or .json for better results
