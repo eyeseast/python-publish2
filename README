@@ -1,7 +1,7 @@
 Basic how-to:
 
 >>> import publish2
->>> p2 = publish2.get_for_journalist("Ryan Sholin") # fetches your 100 latest links as a feed
+>>> p2 = publish2.get_for_journalist("Ryan Sholin") # fetches your 100 latest links
 >>> my_links = p2.items # the actual links
 >>> my_links[0].title # each item has a title, link, publication_name, publication_date, created_date, tags, description, some other stuff
 
@@ -11,3 +11,36 @@ Basic how-to:
 
 # or just get any feed
 >>> p2 = publish2.get_feed("http://www.publish2.com/recent") # this is buggy. Add .rss or .json for better results
+
+
+Feed attributes:
+- 'description': "Publish2 Chris Amico's Link Journalism JSON Feed From Publish2"
+- 'feedlink': 'http://www.publish2.com/journalists/chris-amico/links.js'
+- 'generator': 'Powered by Publish2'
+- 'items': # list of publish2.Publish2Link, see below
+- 'modified': 'Sun, 27 Sep 2009 13:47:41 -0400' # need to parse this
+- 'sitelink': 'http://www.publish2.com'
+- 'title': "Chris Amico's links"
+
+Item attributes:
+- 'publication_name': 'Washington Post'
+- 'description': 'Shorter version: The Post is still figuring out how human its people can be online.'
+- 'title': 'Ombudsman Blog: Post Editor Ends Tweets as New Guidelines Are Issued'
+- 'tags': [<Publish2Tag: twitter>, <Publish2Tag: Media & Journalism>, <Publish2Tag: bias>, <Publish2Tag: social media>, <Publish2Tag: Washington Post>]
+- 'link': 'http://voices.washingtonpost.com/ombudsman-blog/2009/09/post_editor_ends_tweets_as_new.html?wprss=ombudsman-blog'
+- 'journalist_full_name': 'Chris Amico'
+- 'created_date': 'September 27, 2009 at 1:21PM EDT'
+- 'publication_date': datetime.datetime(2009, 9, 27, 0, 0)
+- 'journalist_profile': 'http://www.publish2.com/journalists/chris-amico'
+
+Tag attributes:
+- 'type': 'standard' # choices are 'standard' or 'custom'
+- 'link': 'http://www.publish2.com/journalists/chris-amico/links/Media-Journalism'
+- 'name': 'Media & Journalism'
+
+
+
+TODO:
+
+- Fix date parsing on 'created_date': September 27, 2009 at 1:21PM EDT. This should come out as a Python datetime object, but timezones are a problem.
+- Sort by time (today, this week, this month, this year) and by rank, as Publish2 does now.
